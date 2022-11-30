@@ -26,6 +26,7 @@ if __name__ == '__main__':
     for user in users_json:
         if user.get('id') == id_u:
             name_e = user.get('name')
+            break
 
     for task in todo_json:
         if task.get('userId') == id_u:
