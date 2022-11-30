@@ -23,16 +23,16 @@ if __name__ == '__main__':
     number_of_done_tasks = 0
     task_title = []
 
+    for user in users_json:
+        if user.get('id') == id_u:
+            name_e = user.get('name')
+
     for task in todo_json:
         if task.get('userId') == id_u:
             total_number_task += 1
             if task.get('completed') is True:
                 number_of_done_tasks += 1
                 task_title.append(task.get('title'))
-
-    for user in users_json:
-        if user.get('id') == id_u:
-            name_e = user.get('name')
 
     print('Employee {} is done with tasks({}/{}):'
           .format(name_e, number_of_done_tasks, total_number_task))
