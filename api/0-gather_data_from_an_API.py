@@ -14,21 +14,23 @@ if __name__ == '__main__':
     """
     Function
     """
-    todo = requests.get('https://jsonplaceholder.typicode.com/todos').json()
-    users = requests.get('https://jsonplaceholder.typicode.com/users').json()
+    todo = requests.get('https://jsonplaceholder.typicode.com/todos/')
+    todo_json = todo.json()
+    users = requests.get('https://jsonplaceholder.typicode.com/users/')
+    users_json = users.json()
     id_u = int(argv[1])
     total_number_task = 0
     number_of_done_tasks = 0
     task_title = []
 
-    for task in todo:
+    for task in todo_json:
         if task.get('userId') == id_u:
             total_number_task += 1
             if task.get('completed') is True:
                 number_of_done_tasks += 1
                 task_title.append(task.get('title'))
 
-    for user in users:
+    for user in users_json:
         if user.get('id') == id_u:
             name_e = user.get('name')
 
