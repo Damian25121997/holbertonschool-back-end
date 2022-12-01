@@ -14,29 +14,26 @@ if __name__ == '__main__':
     """
     Function
     """
-    todo = requests.get('https://jsonplaceholder.typicode.com/todos?userId={}'
-                        .format(argv[1]))
-    user = requests.get('https://jsonplaceholder.typicode.com/users/{}'
-                        .format(argv[1]))
+    todo = requests.get('https://jsonplaceholder.typicode.com/todos/')
+    user = requests.get('https://jsonplaceholder.typicode.com/users/')
     todos = todo.json()
     users = user.json()
-    new_list = []
-    
-    print(new_list)
-    dictionary = {
-            # # 'task': '{}'.format(todos.get('title')),
-            # # 'completed': '{}'.format(todos.get('completed')),
-            # # 'username': '{}'.format(users.get('username'))
-            }
-    dictionary['task'] = '{}'.format(todos.get('title'))
-    dictionary['completed'] = '{}'.format(todos.get('completed'))
-    dictionary['username'] = '{}'.format(todo.get('username'))
-    dictionary2 = dictionary.copy()
-    new_list.append(dictionary2)
-    print(new_list)
-        
-#    with open('{}.json'.format(argv[1]), 'w') as json_file:
-#        temp = {}
-#        for key, val in temp.items():
-#            temp[key] = todos
-#        json.dump(todos, json_file)
+
+    for id in users:
+        if id['id'] == int(argv[1]):
+            username = id['username']
+    list = []
+
+    for task in todos:
+        dictionary = {}
+        if task['userId'] == int(argv[1]):
+            dictionary['username'] = username
+            dictionary['task'] = task['title']
+            dictionary['completed'] = task['completed']
+            list.append(dictionary)
+    dictionary_f = {}
+    dictionary_f[int(argv[1])] = list
+    json_f = json.dumps(dictionary_f)
+
+    with open(argv[1] + '.json', 'w') as file:
+        file.write(json_f)
